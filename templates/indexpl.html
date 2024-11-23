@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Fertilizer Recommendation System</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
+
+        :root {
+            --light-green: #F6FCDF;
+            --medium-green: #1A1A19;
+            --dark-green: #31511E;
+            --accent-green: #859F3D;
+            --hover-green: #778a2e;
+        }
+
+        * {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        body {
+            background: var(--light-green);
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #31511E;
+            padding: 1rem 9%;
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
+        }
+
+        header .logo {
+            font-size: 2rem;
+            font-weight: bolder;
+            color: white;
+            animation: logo-bounce 0.9s infinite;
+        }
+
+        @keyframes logo-bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        header .navbar a {
+            font-size: 1.2rem;
+            margin-left: 2rem;
+            color: white;
+        }
+
+        header .navbar a:hover {
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        #menu-bar {
+            font-size: 3rem;
+            cursor: pointer;
+            color: white;
+            border: 0.1rem solid white;
+            border-radius: 0.3rem;
+            padding: 0.5rem 1.5rem;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            #menu-bar {
+                display: initial;
+            }
+
+            header .navbar {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--light-green);
+                display: none;
+                flex-direction: column;
+            }
+
+            header .navbar.active {
+                display: flex;
+            }
+
+            header .navbar a {
+                margin: 1rem;
+                padding: 1rem;
+                color: var(--dark-green);
+                border-bottom: 0.1rem solid var(--medium-green);
+            }
+        }
+
+        section {
+            padding: 10rem 9% 2rem;
+        }
+
+        .home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), 
+                url('https://images.unsplash.com/photo-1593414220148-9bdeb65c96ab?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+
+        .home .content h3 {
+            font-size: 4rem;
+            color: white;
+            text-align: center;
+            font-weight: bolder;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .home .content p {
+            font-size: 1.4rem;
+            color: white;
+            text-align: center;
+            margin: 1rem 0;
+            animation: slideUp 1.5s ease-in-out;
+        }
+
+        .home .content .a{
+            font-size: 1rem;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .home .btn {
+            background: var(--dark-green);
+            color: white;
+            padding: 1rem 3rem;
+            font-size: 1.7rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .home .btn:hover {
+            background: var(--hover-green);
+        }
+
+        .heading {
+            text-align: center;
+            font-size: 3rem;
+            color: var(--dark-green);
+            margin-bottom: 2rem;
+        }
+
+        .popular .box-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .popular .box {
+            background: white;
+            border: 1px solid var(--medium-green);
+            border-radius: 1rem;
+            text-align: center;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .popular .box:hover {
+            transform: translateY(-10px);
+        }
+
+        .popular .box img {
+            width: 100%;
+            border-radius: 1rem;
+        }
+
+        .popular .box h3 {
+            font-size: 2rem;
+            color: var(--dark-green);
+            margin-top: 1rem;
+        }
+
+        .popular .box .btn {
+            margin-top: 1rem;
+            background: var(--medium-green);
+            color: white;
+        }
+
+        .popular .box .btn:hover {
+            background: var(--hover-green);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--dark-green);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            #menu-bar {
+                display: block;
+            }
+
+            header .navbar {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--light-green);
+                flex-direction: column;
+                align-items: center;
+                display: none;
+            }
+
+            header .navbar.active {
+                display: flex;
+            }
+
+            header .navbar a {
+                margin: 1rem 0;
+                color: white;
+            }
+        }
+        .farmers {
+    padding: 5rem 9%;
+    background: var(--light-green);
+    text-align: center;
+}
+
+.farmers .box-container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.farmers .box {
+    background: white;
+    border: 1px solid var(--medium-green);
+    border-radius: 1rem;
+    padding: 2rem;
+    width: 300px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.farmers .box:hover {
+    transform: translateY(-10px);
+}
+
+.farmers .box img {
+    width: 100%;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+}
+
+.farmers .box h3 {
+    font-size: 1.8rem;
+    color: var(--dark-green);
+    margin-bottom: 0.5rem;
+}
+
+.modern-farming {
+    padding: 5rem 9%;
+    background: var(--light-green);
+    color: var(--dark-green);
+}
+
+.modern-farming .heading {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.modern-farming .content {
+    font-size: 1.6rem;
+    line-height: 1.8;
+    margin: 0 auto;
+    max-width: 800px;
+    text-align: justify;
+}
+
+.modern-farming ul {
+    list-style: disc;
+    margin: 1rem 0 1rem 2rem;
+}
+
+.modern-farming li {
+    margin: 0.5rem 0;
+    color: var(--medium-green);
+    font-size: 1.5rem;
+}
+.modern-farming {
+    padding: 5rem 9%;
+    background: var(--light-green);
+    color: var(--dark-green);
+}
+
+.modern-farming .heading {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.modern-farming .content,
+.modern-farming .history {
+    font-size: 1.6rem;
+    line-height: 1.8;
+    margin: 0 auto;
+    max-width: 900px;
+    text-align: justify;
+}
+
+.modern-farming ul {
+    list-style: disc;
+    margin: 1rem 0 1rem 2rem;
+}
+
+.modern-farming li {
+    margin: 0.5rem 0;
+    color: var(--medium-green);
+    font-size: 1.5rem;
+}
+
+.modern-farming .history {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--medium-green);
+}
+
+.fertilizer-tech {
+    padding: 5rem 9%;
+    background: var(--light-green);
+    color: var(--dark-green);
+}
+
+.fertilizer-tech .heading {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.fertilizer-tech .content {
+    font-size: 1.6rem;
+    line-height: 1.8;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: justify;
+}
+
+.fertilizer-tech .tech-details p {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: var(--medium-green);
+}
+
+.fertilizer-tech img.tech-image {
+    display: block;
+    margin: 2rem auto;
+    max-width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo"><i class="fas fa-seedling"></i>pred</a>
+        <div id="menu-bar" class="fas fa-bars"></div>
+        <nav class="navbar">
+            <a href="indexpl.html">Home</a>
+            <a href="detailp.html">Details</a>
+            <a href="inputs.html">Model</a>
+            <a href="indexart.html">Article</a>
+        </nav>
+    </header>
+
+    <section class="home" id="home">
+        <div class="content">
+            <h3>Fertilizer Recommendation System</h3>
+            <p>
+                Optimize crop yields with our precision-based fertilizer system tailored to your needs.
+            </p>
+            <p>
+                We have created a website where we suggest the type and quantity of fertilizer you need to obtain efficient 
+                and fruitful crops. This is based on key soil parameters such as humidity, temperature, moisture, soil type, 
+                and the crop you wish to cultivate. Additionally, our system analyzes the basic fertilizer content in the soil, 
+                including nitrogen (N), phosphorus (P), and potassium (K), to provide precise recommendations.
+            </p>
+            <br>
+            <br>
+            <a href="#" class="btn">See More</a>
+        </div>
+    </section>
+    
+
+    <section class="popular" id="popular">
+        <h1 class="heading">Our Model</h1>
+        <div class="box-container">
+            <div class="box">
+                <img src="https://media.licdn.com/dms/image/C5612AQF5l8S0jeBKEA/article-cover_image-shrink_600_2000/0/1640298463453?e=2147483647&v=beta&t=6fJ2qoux0VqZQl9j5Kf6akQj1OkRL_4jxZmijrEntyY" alt="Fertilizer">>
+                <h3>Fertilizer Model</h3>
+                <a href="{{ url_for('model') }}" class="btn">Visit</a>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="farmers" id="farmers">
+        <h1 class="heading">Meet Our Farmers</h1>
+        <div class="box-container">
+            <div class="box">
+                <img src="https://kj1bcdn.b-cdn.net/media/100537/modern-farming.png" alt="Farmer 1">
+                <h3>Rakesh Ranjan, India</h3>
+                <p>From Pune, India</p>
+                <p>"This system helped me improve my crop yields tremendously!"</p>
+            </div>
+            <div class="box">
+                <img src="https://c8.alamy.com/comp/EG497T/farmer-working-in-maize-field-vibro-cultivator-modern-agricultural-EG497T.jpg" alt="Farmer 2">
+                <h3>Priya Singh</h3>
+                <p>From Nashik, India</p>
+                <p>"A game-changer for modern farming."</p>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="modern-farming" id="modern-farming">
+        <h1 class="heading">Modern Farming & Fertilizers</h1>
+        <div class="content">
+            <p>
+                Modern farming integrates advanced technologies to optimize agricultural practices. Fertilizers play a crucial role 
+                in enhancing crop yields by replenishing essential soil nutrients like nitrogen, phosphorus, and potassium (NPK).
+            </p>
+            <p>
+                <strong>Precision Agriculture:</strong> Fertilizer application is now data-driven, ensuring the right amount is applied
+                at the right time, reducing waste and environmental impact.
+            </p>
+            <p>
+                <strong>Sustainable Practices:</strong> Modern farming promotes sustainable fertilizers like organic compost and bio-fertilizers 
+                to protect soil health while maintaining productivity.
+            </p>
+            <p>
+                Popular fertilizers include:
+            </p>
+            <ul>
+                <li><strong>Urea:</strong> High nitrogen content for leafy crop growth.</li>
+                <li><strong>DAP (Di-Ammonium Phosphate):</strong> Rich in phosphorus for root and flower development.</li>
+                <li><strong>Muriate of Potash:</strong> Boosts potassium levels, improving crop resistance to diseases.</li>
+            </ul>
+            <p>
+                By using smart technologies like IoT sensors and AI models, modern farming systems recommend fertilizers tailored 
+                to soil health and crop requirements, paving the way for a greener and more efficient agricultural future.
+            </p>
+        </div>
+        <div class="history">
+            <h2 class="heading">History of Fertilizer Culture</h2>
+            <p>
+                The use of fertilizers dates back to ancient civilizations, where natural substances like manure, ash, and ground bones 
+                were used to enrich the soil. The invention of chemical fertilizers in the 19th century, particularly the Haber-Bosch 
+                process for synthesizing ammonia, revolutionized agriculture by enabling large-scale production of nitrogen-based fertilizers.
+            </p>
+            <p>
+                In the mid-20th century, the Green Revolution introduced intensive fertilizer use alongside high-yield crop varieties, 
+                leading to significant increases in food production worldwide. While this transformed agriculture, it also raised concerns 
+                about overuse and environmental impact, prompting the development of sustainable and organic alternatives.
+            </p>
+            <p>
+                Today, the focus has shifted toward balanced fertilizer use, leveraging modern technologies like IoT sensors and AI to 
+                predict soil needs and minimize ecological harm. This evolution marks the journey of fertilizers from simple organic 
+                inputs to advanced, precision-based tools for sustainable farming.
+            </p>
+        </div>
+    </section>
+    
+
+    
+
+    <section class="fertilizer-tech" id="fertilizer-tech">
+        <h1 class="heading">Technologies for Fertilizer Prediction</h1>
+        <div class="content">
+            <p>
+                Fertilizer prediction has become a critical component of modern farming, leveraging cutting-edge technologies to 
+                optimize nutrient management. These technologies ensure precise application of fertilizers, reducing waste and 
+                environmental harm while boosting crop yields.
+            </p>
+            <div class="tech-details">
+                <p>
+                    <strong>1. Machine Learning Algorithms:</strong> AI models analyze soil data, weather patterns, and crop types to predict 
+                    the exact nutrient requirements for optimal growth.
+                </p>
+                <p>
+                    <strong>2. IoT-Enabled Soil Sensors:</strong> Internet of Things (IoT) devices monitor soil pH, moisture, and nutrient levels 
+                    in real time, providing accurate fertilizer recommendations.
+                </p>
+                <p>
+                    <strong>3. Geographic Information Systems (GIS):</strong> GIS maps analyze spatial data to identify soil fertility 
+                    variations and suggest site-specific fertilizer applications.
+                </p>
+                <p>
+                    <strong>4. Mobile Apps and Platforms:</strong> Farmer-friendly apps integrate data from satellites and sensors to recommend 
+                    fertilizers tailored to local conditions.
+                </p>
+            </div>
+            <img src="C:/Users/RajRoushan/Downloads/temp/fertilizer_prediction.jpg" alt="Fertilizer Prediction Technology" class="tech-image">
+        </div>
+    </section>
+    
+
+    
+
+
+    <section class="footer">
+        <p>Fertilizer Recommendation System | Created by meeeeeeeee</p>
+    </section>
+
+    <script>
+        const menuBar = document.querySelector('#menu-bar');
+        const navbar = document.querySelector('.navbar');
+
+        menuBar.onclick = () => {
+            menuBar.classList.toggle('fa-times');
+            navbar.classList.toggle('active');
+        };
+    </script>
+</body>
+</html> 
+

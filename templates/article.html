@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Article</title>
+  <style>
+     :root {
+            --light-green: #F6FCDF;
+            --medium-green: #1A1A19;
+            --dark-green: #31511E;
+            --accent-green: #859F3D;
+            --hover-green: #778a2e;
+        }
+    body {
+      font-family: Arial, sans-serif;
+      background:  var(--accent-green);
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #d4f1c4;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: var(--dark-green);
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #555;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: #31511E;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      color: #778a2e;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="article-title"></h1>
+    <p id="article-content"></p>
+    <a href="indexart.html" class="back-link">← Back to Articles</a>
+  </div>
+
+  <script>
+    // Sample articles data
+    const articles = {
+      1: {
+        title: "How to Improve Soil Fertility Naturally",
+        content: "Soil fertility can be improved by using organic compost, practicing crop rotation, and minimizing soil disturbance. Organic matter not only enhances soil nutrients but also boosts microbial activity, ensuring sustainable growth. Mulching, cover crops, and adding manure can also protect the soil and promote a healthy ecosystem."
+      },
+      2: {
+        title: "Understanding NPK: A Guide to Soil Nutrients",
+        content: "Understanding NPK—Nitrogen (N), Phosphorus (P), and Potassium (K)—is fundamental to cultivating healthy and productive plants, as these three nutrients play distinct yet interconnected roles in plant growth. Nitrogen serves as the powerhouse for vegetative growth, fueling chlorophyll production and photosynthesis to ensure plants have lush, green foliage. This makes it particularly vital for leafy vegetables, grasses, and crops that depend on vigorous leaf development. A deficiency in nitrogen often manifests as yellowing leaves and stunted growth, particularly affecting older foliage. Phosphorus, on the other hand, is essential for root development, energy transfer, and the creation of flowers, fruits, and seeds. It enables plants to absorb nutrients efficiently and supports their overall structural growth. A phosphorus deficiency typically results in slow growth, weak root systems, and dark or purplish discoloration in leaves. Potassium rounds out the trio as a critical nutrient for strengthening plants, enhancing their resistance to diseases, regulating water uptake, and improving fruit and flower quality. It aids in enzyme activation and the internal movement of nutrients, making plants more resilient to environmental stresses such as drought or temperature fluctuations. Potassium-deficient plants often exhibit yellowing or browning leaf edges, weak stems, and poor yield quality. Fertilizer labels display NPK ratios, such as 10-10-10 or 20-10-5, which indicate the percentage of each nutrient. These ratios help gardeners tailor fertilization to specific plant needs, with balanced options suitable for general use and specialized formulas addressing particular deficiencies. For example, a nitrogen-rich fertilizer benefits leafy crops, while high-phosphorus fertilizers promote flowering and fruiting. However, understanding NPK is only part of the equation—testing soil is equally important to identify existing nutrient levels and ensure balanced fertilization. Over-fertilization can lead to nutrient imbalances, environmental pollution, and potential harm to plants. By assessing soil conditions and applying fertilizers strategically, gardeners can avoid such pitfalls and provide plants with the right combination of nutrients for optimal growth. With an informed approach to NPK, plants can achieve vigorous growth, robust health, and bountiful harvests, making this knowledge invaluable for any gardener or farmer aiming for long-term success."
+      },
+      3: {
+        title: "Tips for Sustainable Fertilizer Use",
+        content: "Sustainable fertilizer use starts with soil testing to understand its nutrient profile. Use organic fertilizers or slow-release formulations to minimize runoff and leaching. Avoid over-fertilizing, as it can harm the environment and reduce soil health. Apply fertilizers during dry conditions and consider precision agriculture techniques."
+      },
+      4: {
+        title: "Benefits of Cover Crops for Soil Health",
+        content: "Cover crops, such as clover and rye, prevent soil erosion, improve water retention, and enhance nutrient cycling. They act as a natural weed suppressant and contribute to organic matter when decomposed. Additionally, leguminous cover crops fix nitrogen in the soil, reducing the need for synthetic fertilizers."
+      },
+      5: {
+        title: "The Role of Microbes in Soil Fertility",
+        content: "Soil microbes decompose organic matter, fix nitrogen, and release nutrients for plant uptake. Beneficial fungi, like mycorrhizae, form symbiotic relationships with plants, enhancing root absorption of water and nutrients. Promoting microbial activity through composting and avoiding harmful chemicals boosts soil fertility."
+      },
+      6: {
+        title: "Composting: A Natural Way to Enrich Soil",
+        content: "Composting involves recycling organic waste, such as kitchen scraps and yard debris, into nutrient-rich humus. It improves soil structure, enhances moisture retention, and provides a balanced nutrient supply for plants. Proper aeration, moisture levels, and a mix of greens and browns are key to successful composting."
+      },
+      7: {
+        title: "How Crop Rotation Benefits Soil",
+        content: "Crop rotation involves planting different crops in a sequence to prevent soil nutrient depletion and reduce pests. For example, alternating legumes with cereals replenishes nitrogen levels. This practice enhances soil structure, boosts fertility, and promotes biodiversity within the farming ecosystem."
+      },
+      8: {
+        title: "The Impact of Over-Fertilization on Soil",
+        content: "Excessive fertilizer use leads to nutrient runoff, soil acidification, and water contamination. Over-fertilization harms soil microorganisms and causes imbalances in nutrient availability. Adopting sustainable practices, such as precision application and using organic amendments, can mitigate these effects."
+      },
+      9: {
+        title: "The Importance of Soil pH in Agriculture",
+        content: "Soil pH affects nutrient availability and microbial activity. Most crops thrive in slightly acidic to neutral soils (pH 6-7). Amending soil with lime or sulfur can adjust pH levels, ensuring optimal conditions for plant growth. Regular testing helps farmers maintain a balanced pH for their crops."
+      },
+      10: {
+        title: "Organic vs. Synthetic Fertilizers: Pros and Cons",
+        content: "Organic fertilizers, such as manure and compost, improve soil health and are eco-friendly but act slower. Synthetic fertilizers provide immediate nutrient availability but may degrade soil quality over time. A balanced approach, combining both types, ensures long-term soil fertility and sustainable farming."
+      }
+    };
+
+    // Get article ID from URL
+    const params = new URLSearchParams(window.location.search);
+    const articleId = params.get('id');
+
+    // Display the article
+    if (articles[articleId]) {
+      document.getElementById('article-title').textContent = articles[articleId].title;
+      document.getElementById('article-content').textContent = articles[articleId].content;
+    } else {
+      document.getElementById('article-title').textContent = "Article Not Found";
+      document.getElementById('article-content').textContent = "The article you are looking for does not exist or has been removed.";
+    }
+  </script>
+</body>
+</html>

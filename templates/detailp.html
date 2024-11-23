@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <title>Fertilizer Recommendation</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap");
+
+      :root {
+            --light-green: #F6FCDF;
+            --medium-green: #1A1A19;
+            --dark-green: #31511E;
+            --accent-green: #859F3D;
+            --hover-green: #778a2e;
+        }
+
+      * {
+        font-family: "Nunito", sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        outline: none;
+        border: none;
+        text-decoration: none;
+        text-transform: capitalize;
+        transition: all 0.3s ease-in-out;
+      }
+
+      *::selection {
+        background: var(--medium-green);
+        color: #fff;
+      }
+
+      body {
+        background: var(--light-green);
+        font-size: 1.6rem;
+        overflow-x: hidden;
+      }
+
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: linear-gradient(to right, var(--medium-green), var(--dark-green));
+        padding: 2rem 9%;
+        box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
+      }
+
+      header .logo {
+        font-size: 2.5rem;
+        font-weight: bolder;
+        color: white;
+        animation: logo-bounce 1s infinite;
+      }
+
+      @keyframes logo-bounce {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      header .navbar a {
+        font-size: 1.8rem;
+        margin-left: 2rem;
+        color: white;
+      }
+
+      header .navbar a:hover {
+        color: var(--accent-green);
+        font-weight: bold;
+      }
+
+      #menu-bar {
+        font-size: 3rem;
+        cursor: pointer;
+        color: white;
+        border: 0.1rem solid white;
+        border-radius: 0.3rem;
+        padding: 0.5rem 1.5rem;
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        #menu-bar {
+          display: initial;
+        }
+
+        header .navbar {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: var(--light-green);
+          display: none;
+          flex-direction: column;
+        }
+
+        header .navbar.active {
+          display: flex;
+        }
+
+        header .navbar a {
+          margin: 1rem;
+          padding: 1rem;
+          color: var(--dark-green);
+          border-bottom: 0.1rem solid var(--medium-green);
+        }
+      }
+
+      section {
+        padding: 10rem 9% 2rem;
+      }
+
+      .home .heading {
+        color: var(--dark-green);
+        font-size: 3.5rem;
+        text-align: center;
+        animation: fadeIn 2s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .home .content p {
+        font-size: 1.8rem;
+        color: var(--dark-green);
+        line-height: 2.5rem;
+        animation: slideUp 1.5s ease-in-out;
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .home .plants_and_their_info h1 {
+        font-size: 2.5rem;
+        color: var(--hover-green);
+        margin-top: 2rem;
+      }
+
+      .home .plants_and_their_info p {
+        font-size: 1.6rem;
+        color: var(--dark-green);
+        background: var(--light-green);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+      }
+
+      .charts img {
+        width: 100%;
+        max-width: 70rem;
+        margin: 20px auto;
+        display: block;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s;
+      }
+
+      .charts img:hover {
+        transform: scale(1.05);
+      }
+
+      .footer {
+        text-align: center;
+        padding: 2rem 0;
+        background: var(--medium-green);
+        color: white;
+        font-size: 1.6rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="#" class="logo"><i class="fas fa-seedling"></i> GreenGrow</a>
+      <div id="menu-bar" class="fas fa-bars"></div>
+      <nav class="navbar">
+        <a href="#">Home</a>
+        <a href="#">Model</a>
+      </nav>
+    </header>
+
+    <section class="home" id="home">
+  <h1 class="heading">Fertilizer Recommendation System</h1>
+  <div class="content">
+    <p>
+      This system helps farmers make informed decisions about fertilizers
+      by analyzing soil data, crop types, and weather conditions.
+    </p>
+
+    <div class="plants_and_their_info">
+      <h1>Nitrogen (N)</h1>
+      <p>
+        Nitrogen is crucial for plant growth and the creation of chlorophyll,
+        aiding in the plant's overall metabolism.
+      </p>
+    </div>
+
+    <div class="plants_and_their_info">
+      <h1>Phosphorus (P)</h1>
+      <p>
+        Phosphorus helps store and transfer energy in plants, impacting growth and reproduction processes.
+      </p>
+    </div>
+
+    <div class="plants_and_their_info">
+      <h1>Humidity</h1>
+      <p>
+        Humidity levels affect plant transpiration rates and can influence nutrient uptake. Higher humidity can reduce water loss but may also increase the risk of fungal diseases.
+      </p>
+    </div>
+
+    <div class="plants_and_their_info">
+      <h1>Temperature</h1>
+      <p>
+        Temperature plays a significant role in enzyme activity, photosynthesis, and overall plant growth. Extreme temperatures can stress plants, reducing their ability to absorb nutrients.
+      </p>
+    </div>
+
+    <div class="plants_and_their_info">
+      <h1>Soil Moisture</h1>
+      <p>
+        Adequate soil moisture is necessary for nutrient transport within the plant. Insufficient moisture can lead to nutrient deficiencies, while excessive moisture can result in root rot and poor aeration.
+      </p>
+    </div>
+
+    <div class="plants_and_their_info">
+      <h1>Soil Type</h1>
+      <p>
+        Different soil types (sandy, loamy, clay) affect water retention, drainage, and nutrient availability. Understanding soil type is crucial for selecting the right fertilizers and irrigation strategies.
+      </p>
+    </div>
+
+        <!-- Add more sections here -->
+
+        <div class="charts">
+          <img src="{{ url_for('static', filename='images/o1.png') }}" alt="Chart 1" />
+        </div>
+      </div>
+    </section>
+
+    <section class="footer">
+      <h1>Created by meeeeee
+      </h1>
+    </section>
+
+    <script>
+      const menu = document.querySelector("#menu-bar");
+      const navbar = document.querySelector(".navbar");
+
+      menu.addEventListener("click", () => {
+        menu.classList.toggle("fa-times");
+        navbar.classList.toggle("active");
+      });
+    </script>
+  </body>
+</html>
+
